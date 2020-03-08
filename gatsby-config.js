@@ -15,13 +15,6 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-layout`,
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `content`,
-        path: path.join(__dirname, `..`, `content`),
-      },
-    },
-    {
       resolve: `gatsby-source-contentful`,
       options: {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
@@ -30,7 +23,6 @@ module.exports = {
         downloadLocal: true,
       },
     },
-    `gatsby-transformer-yaml`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-theme-ui`,
