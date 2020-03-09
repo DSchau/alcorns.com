@@ -5,6 +5,8 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
+    "contentful-management": "^5.13.0",
+    "dotenv": "^8.2.0",
     "fs-extra": "^8.1.0",
     "limax": "^2.0.0",
     "puppeteer": "^2.1.1"

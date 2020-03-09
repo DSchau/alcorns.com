@@ -15,18 +15,6 @@ export const pageQuery = graphql`
       body {
         json
       }
-      hero {
-        id
-        title
-        description
-        localFile {
-          childImageSharp {
-            fluid(maxWidth: 1200, quality: 85) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
-      }
       contentBlocks {
         # gallery of images -- neat!
         ... on ContentfulGallery {
@@ -35,6 +23,21 @@ export const pageQuery = graphql`
           ...GalleryDetails
         }
         # hero image, of course!
+        ... on ContentfulHero {
+          __typename
+          hero: image {
+            id
+            title
+            description
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 1200, quality: 85) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
+        }
 
         # section of content
         ... on ContentfulSection {
