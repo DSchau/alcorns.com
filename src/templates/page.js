@@ -12,6 +12,9 @@ export const pageQuery = graphql`
       slug
       description
       title
+      body {
+        json
+      }
       hero {
         id
         title
@@ -32,7 +35,6 @@ export const pageQuery = graphql`
           ...GalleryDetails
         }
         # hero image, of course!
-
 
         # section of content
         ... on ContentfulSection {

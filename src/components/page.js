@@ -7,6 +7,7 @@ import { SkipNavContent } from '@reach/skip-nav'
 import Gallery from '../components/gallery'
 import Section from '../components/section'
 import SEO from '../components/seo'
+import richTextRenderer from '../components/rich-text-renderer'
 
 import partials from '../components/partials'
 
@@ -17,6 +18,7 @@ function Page({
   title,
   featuredImage,
   contentBlocks,
+  body,
 }) {
   const page = contentBlocks.reduce((merged, block) => {
     switch (block.__typename) {
@@ -59,6 +61,7 @@ function Page({
       <SkipNavContent>
         {Partial && <Partial />}
         {children}
+        {body && richTextRenderer(body.json)}
         {page.section &&
           page.section.map(section => (
             <Section key={section.id} {...section} />
