@@ -3,7 +3,7 @@ const format = require('date-fns/format')
 
 exports.onCreateNode = function onCreateNode({ actions, node }) {
   if (node.internal.type === `ContentfulPage`) {
-    const date = format(new Date(node.date), 'MM-dd-yyyy')
+    const date = format(new Date(node.date), 'yyyy-MM-dd')
     actions.createNodeField({
       node,
       name: `slug`,
