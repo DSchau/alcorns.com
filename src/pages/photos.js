@@ -11,22 +11,20 @@ function Photos({ data }) {
   const { archive } = data
   const gallery = archive.nodes.reduce((merged, node) => {
     return merged.concat(
-      node.contentBlocks ? node.contentBlocks.filter(block => block.__typename === `ContentfulGallery`) : []
+      node.contentBlocks
+        ? node.contentBlocks.filter(
+            block => block.__typename === `ContentfulGallery`
+          )
+        : []
     )
   }, [])
   return (
     <React.Fragment>
-      <SEO
-        title="Photos"
-        description="An archive of photos for Maggie and Dustin"
-      />
+      <SEO title="Photos" description="An archive of photos for the Alcorns" />
       <SkipNavContent>
-        {
-          gallery
-            .map(node => (
-              <Gallery key={node.contentBlocks} {...node} />
-          ))
-        }
+        {gallery.map(node => (
+          <Gallery key={node.contentBlocks} {...node} />
+        ))}
       </SkipNavContent>
     </React.Fragment>
   )
@@ -37,14 +35,14 @@ export const photosQuery = graphql`
     archive: allContentfulPage {
       nodes {
         contentBlocks {
-            # gallery of images -- neat!
-            ... on ContentfulGallery {
-              __typename
-              id
-              ...GalleryDetails
-            }
+          # gallery of images -- neat!
+          ... on ContentfulGallery {
+            __typename
+            id
+            ...GalleryDetails
           }
         }
+      }
     }
   }
 `

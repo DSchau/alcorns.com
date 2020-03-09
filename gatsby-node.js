@@ -1,13 +1,13 @@
 const slugify = require('limax')
-const path = require('path')
-const fs = require('fs-extra')
+const format = require('date-fns/format')
 
 exports.onCreateNode = function onCreateNode({ actions, node }) {
   if (node.internal.type === `ContentfulPage`) {
+    const date = format(new Date(node.date), 'MM-dd-yyyy')
     actions.createNodeField({
       node,
       name: `slug`,
-      value: node.slug === `/` ? node.slug : `/${node.slug}/`,
+      value: node.slug === `/` ? node.slug : `/${date}/${node.slug}/`,
     })
   } else if (
     node.title &&
