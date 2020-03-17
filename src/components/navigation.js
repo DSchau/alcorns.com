@@ -8,32 +8,35 @@ import Link from './link'
 const modes = [`light`, `dark`, `sepia`]
 const defaultMode = `light`
 
-export default function Navigation() {
+export default function Navigation({ showNavItems = true }) {
   const [mode, setMode] = useColorMode(defaultMode)
   const data = useStaticQuery(graphql`
     {
       nav: allContentfulNavigation {
-    nodes {
-      items {
-        ... on ContentfulNavigationItem {
-          id
-          title
-          slug
-        }
-        ... on ContentfulPage {
-          id
-          title
-          fields {
-            slug
+        nodes {
+          items {
+            ... on ContentfulNavigationItem {
+              id
+              title
+              slug
+            }
+            ... on ContentfulPage {
+              id
+              title
+              fields {
+                slug
+              }
+            }
           }
         }
       }
     }
-  }
-    }
   `)
   const nextMode = modes[(modes.indexOf(mode) + 1) % modes.length]
-  const pages = data.nav.nodes[0].items.map(node => [node.title, node.slug || node.fields.slug])
+  const pages = data.nav.nodes[0].items.map(node => [
+    node.title,
+    node.slug || node.fields.slug,
+  ])
   return (
     <nav
       sx={{
@@ -59,36 +62,36 @@ export default function Navigation() {
           maxWidth: `100%`,
         }}
       >
-        <span sx={{ display: 'inline-block' }}>
-          The Alcorns
-        </span>
+        <span sx={{ display: 'inline-block' }}>The Alcorns</span>
       </Link>
-      <Styled.ul
-        sx={{
-          display: `flex`,
-          alignItems: `center`,
-          justifyContent: [`flex-start`, `center`],
-          margin: 0,
-          fontFamily: 'heading',
-          fontSize: [0, 1],
-          pb: [2, 0],
-          textAlign: 'center',
-          whiteSpace: `nowrap`,
-          overflow: `hidden`,
-          overflowX: `scroll`,
-        }}
-      >
-        {[]
-          .concat(pages)
-          .filter(Boolean)
-          .map(([title, to]) => (
-            <Styled.li key={title} sx={{ padding: [2, 3] }}>
-              <Link to={to} partiallyActive={true}>
-                {title}
-              </Link>
-            </Styled.li>
-          ))}
-      </Styled.ul>
+      {showNavItems && (
+        <Styled.ul
+          sx={{
+            display: `flex`,
+            alignItems: `center`,
+            justifyContent: [`flex-start`, `center`],
+            margin: 0,
+            fontFamily: 'heading',
+            fontSize: [0, 1],
+            pb: [2, 0],
+            textAlign: 'center',
+            whiteSpace: `nowrap`,
+            overflow: `hidden`,
+            overflowX: `scroll`,
+          }}
+        >
+          {[]
+            .concat(pages)
+            .filter(Boolean)
+            .map(([title, to]) => (
+              <Styled.li key={title} sx={{ padding: [2, 3] }}>
+                <Link to={to} partiallyActive={true}>
+                  {title}
+                </Link>
+              </Styled.li>
+            ))}
+        </Styled.ul>
+      )}
       <ColorMode
         mode={mode}
         nextMode={nextMode}

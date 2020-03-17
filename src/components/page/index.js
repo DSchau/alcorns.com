@@ -23,7 +23,6 @@ function Page({
   body,
 }) {
   const page = getDataFromContentBlocks(contentBlocks)
-  console.log(page)
   const Partial = partials(slug)
   return (
     <React.Fragment>

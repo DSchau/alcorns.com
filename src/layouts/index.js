@@ -21,7 +21,7 @@ export default ({ children }) => (
       />
       {/* <Banner id="announcement" /> */}
       <SkipNavLink />
-      <Navigation />
+      <Navigation showNavItems={false} />
       <main>{children}</main>
     </Styled.root>
   </React.Fragment>

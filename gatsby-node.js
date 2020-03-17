@@ -30,7 +30,7 @@ exports.createPages = async function createPages({ actions, graphql }) {
     data: { pages },
   } = await graphql(`
     {
-      pages: allContentfulPage(filter: { slug: { ne: "/" } }) {
+      pages: allContentfulPage(filter: { fields: { slug: { ne: null } } }) {
         nodes {
           fields {
             slug
