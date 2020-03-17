@@ -2,12 +2,15 @@ const slugify = require('limax')
 const format = require('date-fns/format')
 
 exports.onCreateNode = function onCreateNode({ actions, node }) {
-  if (node.internal.type === `ContentfulPage`) {
+  /*
+   * We ignore the index because we create it in src/pages/index.js
+   */
+  if (node.internal.type === `ContentfulPage` && node.slug !== `/`) {
     const date = format(new Date(node.date), 'yyyy-MM-dd')
     actions.createNodeField({
       node,
       name: `slug`,
-      value: node.slug === `/` ? node.slug : `/${date}/${node.slug}/`,
+      value: `/${date}/${node.slug}/`,
     })
   } else if (
     node.title &&
@@ -27,7 +30,7 @@ exports.createPages = async function createPages({ actions, graphql }) {
     data: { pages },
   } = await graphql(`
     {
-      pages: allContentfulPage {
+      pages: allContentfulPage(filter: { slug: { ne: "/" } }) {
         nodes {
           fields {
             slug

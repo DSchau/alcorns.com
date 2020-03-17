@@ -8,6 +8,7 @@ const typography = toTheme(doelgerTheme)
 const lightModeColors = {
   accent: '#247BA0',
   text: '#000',
+  textShadow: `rgba(0, 0, 0, 0.125)`,
   background: '#fff',
   primary: '#30e3ca',
 }
@@ -33,12 +34,14 @@ export default {
       dark: {
         accent: '#F3FFBD',
         text: '#fff',
+        textShadow: `rgba(255, 255, 255, 0.125)`,
         background: '#000',
         primary: '#30e3ca',
       },
       sepia: {
         accent: '#AFA19A',
         text: '#423434',
+        textShadow: `rgba(0, 0, 0, 0.125)`,
         background: '#F2ECDC',
         primary: '#D6CEBE',
       },

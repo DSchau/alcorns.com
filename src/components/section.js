@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 
 import richTextRenderer from './rich-text-renderer'
 
-function Section({ body, fields, title }) {
+function Section({ body, children, fields, title, ...rest }) {
   return (
     <Styled.div
       sx={{
@@ -14,11 +14,16 @@ function Section({ body, fields, title }) {
         margin: '0 auto',
         maxWidth: ['100%', '65ch'],
       }}
+      {...rest}
     >
-      <Styled.h2 sx={{ textAlign: 'center', fontSize: 32 }} id={fields.slug}>
+      <Styled.h2
+        sx={{ textAlign: 'center', fontSize: 32 }}
+        {...(fields ? { id: fields.slug } : {})}
+      >
         {title}
       </Styled.h2>
-      {richTextRenderer(body.json)}
+      {body && richTextRenderer(body.json)}
+      {children}
     </Styled.div>
   )
 }
