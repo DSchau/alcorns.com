@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import AuthenticatedRoute from './authenticated-route'
 
 export const AuthenticationContext = React.createContext({
-  authenticated: false,
+  authenticated: undefined,
 })
 
 const LS_KEY = `__authenticated_status__`
@@ -25,7 +25,7 @@ const getAuthStatus = userPassword => {
 }
 
 function AuthProvider({ children }) {
-  const [authenticated, setAuthenticated] = useState(false)
+  const [authenticated, setAuthenticated] = useState(undefined)
   useEffect(() => {
     setAuthenticated(getAuthStatus(LS_PASSWORD))
   }, [])

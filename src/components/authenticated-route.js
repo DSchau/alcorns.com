@@ -90,7 +90,11 @@ const Login = ({ children }) => {
 
 function AuthenticatedRoute({ children }) {
   const { authenticated } = useAuth()
-  const Wrapper = authenticated ? React.Fragment : Login
+  console.log(authenticated)
+  if (authenticated === undefined) {
+    return null
+  }
+  const Wrapper = authenticated === true ? React.Fragment : Login
   return <Wrapper>{children}</Wrapper>
 }
 
