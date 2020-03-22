@@ -3,11 +3,7 @@ import { Styled } from 'theme-ui'
 import { Global } from '@emotion/core'
 import { SkipNavLink } from '@reach/skip-nav'
 
-import {
-  AuthProvider,
-  AuthenticatedRoute,
-  useAuth,
-} from '../components/authentication'
+import { AuthProvider, AuthenticatedRoute } from '../components/authentication'
 import Navigation from '../components/navigation'
 // import Banner from '../components/banner'
 
