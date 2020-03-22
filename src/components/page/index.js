@@ -9,6 +9,7 @@ import Gallery from '../gallery'
 import Section from '../section'
 import SEO from '../seo'
 import richTextRenderer from '../rich-text-renderer'
+import Layout from '../../layouts/'
 
 import partials from '../partials'
 import { getDataFromContentBlocks } from './utils'
@@ -25,58 +26,63 @@ function Page({
   const page = getDataFromContentBlocks(contentBlocks)
   const Partial = partials(slug)
   return (
-    <React.Fragment>
-      <SEO
-        description={description}
-        title={title}
-        {...(featuredImage
-          ? {
-              image: featuredImage.localFile.childImageSharp.resize,
-            }
-          : {})}
-      />
-      {page.hero &&
-        page.hero
-          .filter(img => !!img.hero)
-          .map(img => (
-            <Image
-              key={img.hero.id}
-              alt={img.hero.title || img.hero.description}
-              {...img.hero.localFile.childImageSharp}
-            />
-          ))}
-      {typeof children === 'function' ? (
-        children({
-          partial: Partial && <Partial />,
-          body: body && richTextRenderer(body.json),
-          section:
-            page.section &&
-            page.section.map(section => (
-              <Section key={section.id} {...section} />
-            )),
-          gallery:
-            page.gallery &&
-            page.gallery.map(gallery => (
-              <Gallery key={gallery.id} {...gallery} />
-            )),
-        })
-      ) : (
-        <SkipNavContent>
-          {Partial && <Partial />}
-          {children}
-          {body && richTextRenderer(body.json)}
-          {page.gallery &&
-            page.gallery.map(gallery => (
-              <Gallery key={gallery.id} {...gallery} />
+    <Layout
+      seo={
+        <SEO
+          description={description}
+          title={title}
+          {...(featuredImage
+            ? {
+                image: featuredImage.localFile.childImageSharp.resize,
+              }
+            : {})}
+        />
+      }
+    >
+      <React.Fragment>
+        {page.hero &&
+          page.hero
+            .filter(img => !!img.hero)
+            .map(img => (
+              <Image
+                key={img.hero.id}
+                alt={img.hero.title || img.hero.description}
+                {...img.hero.localFile.childImageSharp}
+              />
             ))}
-          {page.section &&
-            page.section.map(section => (
-              <Section key={section.id} {...section} />
-            ))}
-          {}
-        </SkipNavContent>
-      )}
-    </React.Fragment>
+        {typeof children === 'function' ? (
+          children({
+            partial: Partial && <Partial />,
+            body: body && richTextRenderer(body.json),
+            section:
+              page.section &&
+              page.section.map(section => (
+                <Section key={section.id} {...section} />
+              )),
+            gallery:
+              page.gallery &&
+              page.gallery.map(gallery => (
+                <Gallery key={gallery.id} {...gallery} />
+              )),
+          })
+        ) : (
+          <SkipNavContent>
+            {Partial && <Partial />}
+            {children}
+            {body && richTextRenderer(body.json)}
+            {page.gallery &&
+              page.gallery.map(gallery => (
+                <Gallery key={gallery.id} {...gallery} />
+              ))}
+            {page.section &&
+              page.section.map(section => (
+                <Section key={section.id} {...section} />
+              ))}
+            {}
+          </SkipNavContent>
+        )}
+      </React.Fragment>
+    </Layout>
   )
 }
 

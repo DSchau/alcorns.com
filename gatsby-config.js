@@ -13,7 +13,6 @@ module.exports = {
   plugins: [
     `gatsby-plugin-preact`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-layout`,
     {
       resolve: `gatsby-source-contentful`,
       options: {

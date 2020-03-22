@@ -6,6 +6,7 @@ import { SkipNavContent } from '@reach/skip-nav'
 
 import SEO from '../components/seo'
 import Gallery from '../components/gallery'
+import Layout from '../layouts/'
 
 function Photos({ data }) {
   const { archive } = data
@@ -19,14 +20,20 @@ function Photos({ data }) {
     )
   }, [])
   return (
-    <React.Fragment>
-      <SEO title="Photos" description="An archive of photos for the Alcorns" />
+    <Layout
+      seo={
+        <SEO
+          title="Photos"
+          description="An archive of photos for the Alcorns"
+        />
+      }
+    >
       <SkipNavContent>
         {gallery.map(node => (
           <Gallery key={node.contentBlocks} {...node} />
         ))}
       </SkipNavContent>
-    </React.Fragment>
+    </Layout>
   )
 }
 

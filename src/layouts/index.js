@@ -11,7 +11,7 @@ import SEO from '../components/seo'
 
 import '@reach/skip-nav/styles.css'
 
-const Layout = ({ children }) => {
+const Layout = ({ children, seo }) => {
   const data = useStaticQuery(graphql`
     {
       contentfulAsset(title: { eq: "Alcorns Family on Cruise Ship" }) {
@@ -34,11 +34,7 @@ const Layout = ({ children }) => {
   `)
   return (
     <AuthProvider>
-      <SEO
-        {...data.contentfulPage}
-        image={data.contentfulAsset.localFile.childImageSharp.resize}
-      />
-
+      {seo}
       <Styled.root>
         <Global
           styles={{

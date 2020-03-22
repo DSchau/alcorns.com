@@ -90,7 +90,6 @@ const Login = ({ children }) => {
 
 function AuthenticatedRoute({ children }) {
   const { authenticated } = useAuth()
-  console.log(authenticated)
   if (authenticated === undefined) {
     return null
   }
