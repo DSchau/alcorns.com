@@ -8,7 +8,7 @@ export const AuthenticationContext = React.createContext({
 
 const LS_KEY = `__authenticated_status__`
 const LS_PASSWORD_KEY = `__authenticated_pw__`
-const LS_PASSWORD = `Lakers23`
+const LS_PASSWORD = process.env.PASSWORD
 
 const getAuthStatus = userPassword => {
   const [pw, status] = [LS_PASSWORD_KEY, LS_KEY].map(key => {
