@@ -42,7 +42,12 @@ function Page({
       <React.Fragment>
         {page.hero &&
           page.hero
-            .filter(img => !!img.hero)
+            .filter(
+              img =>
+                img.hero &&
+                img.hero.localFile &&
+                img.hero.localFile.childImageSharp
+            )
             .map(img => (
               <Image
                 key={img.hero.id}
